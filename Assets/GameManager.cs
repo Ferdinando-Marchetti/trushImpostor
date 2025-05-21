@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public QuizManager quizManager; // AGGIUNTO: Riferimento diretto al QuizManager
+
     public int totaleRifiuti = 0;
     private int rifiutiSmaltiti = 0;
 
@@ -37,15 +39,27 @@ public class GameManager : MonoBehaviour
     void Vittoria()
     {
         Debug.Log($"🎉 VITTORIA! Smaltiti: {rifiutiSmaltiti} / Totale: {totaleRifiuti}");
+ 
+       
 
-        UIManager ui = FindObjectOfType<UIManager>();
+        UIManager ui = Object.FindFirstObjectByType<UIManager>();
         if (ui != null)
         {
-            ui.MostraVittoria("Hai smaltito tutti i rifiuti! Hai vinto!");
+            StartCoroutine(ui.MostraVittoria("Hai smaltito tutti i rifiuti! Hai vinto!"));
         }
         else
         {
             Debug.LogWarning("⚠️ UIManager non trovato!");
         }
+
+        if (ui != null)
+        {
+            StartCoroutine(ui.AvviaQuiz());
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ UIManager non trovato!");
+        }
+      
     }
 }

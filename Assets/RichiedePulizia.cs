@@ -2,22 +2,29 @@
 
 public class RichiedePulizia : MonoBehaviour
 {
-    [Header("Stato dell'oggetto")]
     public bool èPulito = false;
 
-    /// <summary>
-    /// Chiama questo metodo per lavare l'oggetto.
-    /// </summary>
+    [Header("Effetto visivo")]
+    public GameObject prefabEffettoLavaggio; // ← assegna prefab schiuma
+    public Transform puntoEffetto;           // ← dove farlo apparire (es: transform stesso)
+
     public void Lava()
     {
+        if (èPulito) return;
+
         èPulito = true;
-        Debug.Log($"🧽 {gameObject.name} è stato lavato!");
-        // Qui puoi aggiungere effetti visivi o suoni se vuoi
+        Debug.Log("🧽 Oggetto lavato!");
+
+        // Avvia effetto visivo se presente
+        if (prefabEffettoLavaggio != null && puntoEffetto != null)
+        {
+            GameObject fx = Instantiate(prefabEffettoLavaggio, puntoEffetto.position, Quaternion.identity);
+            Destroy(fx, 2f); // autodistruggi dopo 2 secondi
+        }
+
+        // Altre azioni (es: cambiare materiale) le puoi lasciare qui
     }
 
-    /// <summary>
-    /// Ritorna true se l'oggetto deve ancora essere lavato.
-    /// </summary>
     public bool DeveEssereLavato()
     {
         return !èPulito;

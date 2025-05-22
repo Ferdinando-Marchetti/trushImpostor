@@ -6,7 +6,7 @@ public class PickupThrow : MonoBehaviour
     public float pickupRange = 3f;
     public float throwForce = 500f;
 
-    private GameObject heldObject;
+    public GameObject heldObject;
     private Rigidbody heldRb;
 
     void Update()
@@ -53,8 +53,12 @@ public class PickupThrow : MonoBehaviour
 
     void TryPickup()
     {
+        // Escludi il layer "IgnorePickup"
+        int mask = ~LayerMask.GetMask("IgnorePickup");
         Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+
+        if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, mask))
+
         {
             if (hit.collider.CompareTag("Trash"))
             {

@@ -2,20 +2,34 @@
 
 public class Lavandino : MonoBehaviour
 {
-    private void OnTriggerStay(Collider other)
+    public float distanzaLavaggio = 2f; // distanza massima per lavare
+
+    private Transform playerCamera;
+
+    private void Start()
     {
-        // Verifica se l'oggetto ha il componente RichiedePulizia
-        RichiedePulizia rifiuto = other.GetComponent<RichiedePulizia>();
+        playerCamera = Camera.main.transform;
+    }
 
-        // Se l'oggetto è sporco e il giocatore preme E
-        if (rifiuto != null && rifiuto.DeveEssereLavato() && Input.GetKeyDown(KeyCode.E))
+    private void Update()
+    {
+        // Rileva se il giocatore ha un oggetto in mano
+        PickupThrow pickup = FindObjectOfType<PickupThrow>();
+
+        if (pickup != null && pickup.heldObject != null)
         {
-            rifiuto.Lava();
+            GameObject oggetto = pickup.heldObject;
+            float distanza = Vector3.Distance(oggetto.transform.position, transform.position);
 
-            // Messaggio a schermo (se hai UIManager)
-            UIManager ui = FindObjectOfType<UIManager>();
-            if (ui != null)
-                ui.MostraMessaggio("🧼 Hai lavato l'oggetto!");
+            if (distanza <= distanzaLavaggio && Input.GetKeyDown(KeyCode.E))
+            {
+                RichiedePulizia pulizia = oggetto.GetComponent<RichiedePulizia>();
+                if (pulizia != null && pulizia.DeveEssereLavato())
+                {
+                    pulizia.Lava();
+                    FindObjectOfType<UIManager>()?.MostraMessaggio("🧼 Oggetto lavato!");
+                }
+            }
         }
     }
 }

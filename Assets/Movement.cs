@@ -6,6 +6,8 @@ public class Movement : MonoBehaviour
 {
     public float speed;
     public float mouseSensitivity;
+    public static bool inputBloccato = false;
+
 
     float initY;
     float xRotation = 0f;
@@ -24,6 +26,19 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        if (inputBloccato)
+        {
+            // Blocca il mouse
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
+        else
+        {
+            // Ripristina controllo mouse
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 

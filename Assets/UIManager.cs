@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -33,9 +34,30 @@ public class UIManager : MonoBehaviour
         timer = durataMessaggio;
     }
 
-    public void MostraVittoria(string testo)
+    public IEnumerator MostraVittoria(string testo)
     {
         vittoriaTesto.text = testo;
         vittoriaPanel.SetActive(true);
+
+        yield return new WaitForSeconds(5f); // aspetta 5 secondi
+
+        vittoriaPanel.SetActive(false);
+    }
+
+    public IEnumerator AvviaQuiz()
+    {
+        yield return new WaitForSeconds(5f); //aspetta 5 secondi
+
+        QuizManager quiz = FindFirstObjectByType<QuizManager>();
+        if (quiz != null)
+        {
+            quiz.MostraQuiz();
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ QuizManager non trovato!");
+        }
+        Debug.Log("🧠 Quiz iniziato!");
+
     }
 }

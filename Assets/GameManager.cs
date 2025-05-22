@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     private IInteractable currentTarget;
 
+    // AGGIUNTO: Riferimento diretto al QuizManager
+    public QuizManager quizManager;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -82,12 +85,17 @@ public class GameManager : MonoBehaviour
 
     void Vittoria()
     {
+        // BLOCCO movimento giocatore
+        Movement.inputBloccato = true;
+
         Debug.Log($"🎉 VITTORIA! Smaltiti: {rifiutiSmaltiti} / Totale: {totaleRifiuti}");
 
         UIManager ui = FindObjectOfType<UIManager>();
         if (ui != null)
         {
-            ui.MostraVittoria("Hai smaltito tutti i rifiuti! Hai vinto!");
+            // Uso entrambe le coroutine del primo file
+            StartCoroutine(ui.MostraVittoria("Hai smaltito tutti i rifiuti! Hai vinto!"));
+            StartCoroutine(ui.AvviaQuiz());
         }
         else
         {

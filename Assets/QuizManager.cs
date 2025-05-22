@@ -36,8 +36,6 @@ public class QuizManager : MonoBehaviour
     public void MostraQuiz()
     {
         canvasQuiz.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true; // Sblocca il cursore
         indiceCorrente = 0;
         MostraDomanda();
     }
@@ -113,8 +111,10 @@ public class QuizManager : MonoBehaviour
 
     void FineQuiz()
     {
+        
         Debug.Log("🎯 Quiz completato!");
         canvasQuiz.SetActive(false);
+        
 
         // Puoi aggiungere qui la logica per passare al livello successivo o mostrare un messaggio finale
         pannelloFine.SetActive(true);

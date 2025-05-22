@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     void Vittoria()
     {
+        Movement.inputBloccato = true; // Blocca il movimento del giocatore
+
         Debug.Log($"🎉 VITTORIA! Smaltiti: {rifiutiSmaltiti} / Totale: {totaleRifiuti}");
  
        

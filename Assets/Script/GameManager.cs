@@ -3,6 +3,11 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+
+    [Header("Punteggio")]
+    public int punteggio = 0;
+    public int punteggioMassimo = 100;
+
     public static GameManager Instance;
 
     [Header("Gestione Rifiuti")]
@@ -15,10 +20,25 @@ public class GameManager : MonoBehaviour
     public Camera playerCamera;
     public TMP_Text interactionText;
 
+    [Header("📊 Punteggio")]
+    public TextMeshProUGUI punteggioText;
+
+
     private IInteractable currentTarget;
 
     // AGGIUNTO: Riferimento diretto al QuizManager
     public QuizManager quizManager;
+
+    private void Start()
+    {
+        // Sblocca movimento ogni volta che la scena viene caricata
+        Movement.inputBloccato = false;
+
+        // (opzionale) Nascondi il cursore se sei in gioco
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
 
     private void Awake()
     {
@@ -70,18 +90,31 @@ public class GameManager : MonoBehaviour
         Debug.Log("🆕 Rifiuto creato! Totale ora: " + totaleRifiuti);
     }
 
-    public void RifiutoSmaltito()
+    // ... codice esistente invariato
+
+    public void RifiutoSmaltitoCorretto()
     {
         rifiutiSmaltiti++;
-
-        Debug.Log("✅ Rifiuto smaltito.");
+        AggiungiPunti(10);
+        Debug.Log("✅ Rifiuto corretto smaltito.");
         Debug.Log($"📊 Smaltiti: {rifiutiSmaltiti} / {totaleRifiuti}");
+
+        UIManager.Instance.AggiornaPunteggioUI(punteggio);
 
         if (rifiutiSmaltiti >= totaleRifiuti)
         {
             Vittoria();
         }
     }
+
+    public void RifiutoSmaltitoErrato()
+    {
+        TogliPunti(5);
+        Debug.Log("❌ Rifiuto smaltito nel bidone sbagliato.");
+        UIManager.Instance.AggiornaPunteggioUI(punteggio);
+    }
+
+
 
     void Vittoria()
     {
@@ -102,4 +135,17 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("⚠️ UIManager non trovato!");
         }
     }
+
+    public void AggiungiPunti(int punti)
+    {
+        punteggio += punti;
+        UIManager.Instance.AggiornaPunteggioUI(punteggio);
+    }
+
+    public void TogliPunti(int punti)
+    {
+        punteggio = Mathf.Max(0, punteggio - punti);
+        UIManager.Instance.AggiornaPunteggioUI(punteggio);
+    }
+
 }

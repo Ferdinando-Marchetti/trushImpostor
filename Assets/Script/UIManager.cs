@@ -4,6 +4,9 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
+    // Singleton
+    public static UIManager Instance;
+
     [Header("🟢 Messaggi normali")]
     public GameObject notificaPanel;
     public TextMeshProUGUI notificaTesto;
@@ -14,6 +17,19 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI vittoriaTesto;
 
     private float timer = 0f;
+
+    private void Awake()
+    {
+        // Inizializza il singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
@@ -46,7 +62,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator AvviaQuiz()
     {
-        yield return new WaitForSeconds(5f); //aspetta 5 secondi
+        yield return new WaitForSeconds(5f); // aspetta 5 secondi
 
         QuizManager quiz = FindFirstObjectByType<QuizManager>();
         if (quiz != null)
@@ -57,7 +73,18 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogWarning("⚠️ QuizManager non trovato!");
         }
-        Debug.Log("🧠 Quiz iniziato!");
 
+        Debug.Log("🧠 Quiz iniziato!");
     }
+    [Header("📊 Punteggio")]
+    public TextMeshProUGUI punteggioText;
+
+    public void AggiornaPunteggioUI(int punteggio)
+    {
+        if (punteggioText != null)
+            punteggioText.text = $"Punteggio: {punteggio}";
+        else
+            Debug.LogWarning("⚠️ punteggioText non è assegnato!");
+    }
+
 }

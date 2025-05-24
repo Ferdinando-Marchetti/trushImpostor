@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class PauseManager : MonoBehaviour
     public GameObject pauseMenuUI;
 
     private bool isPaused = false;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -21,18 +23,32 @@ public class PauseManager : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Movement.inputBloccato = false;
         isPaused = false;
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        Movement.inputBloccato = true;
+
         Time.timeScale = 0f;
+
+        // Mostra il cursore nel frame successivo
+        StartCoroutine(ShowCursorNextFrame());
+
+        isPaused = true;
+    }
+
+    IEnumerator ShowCursorNextFrame()
+    {
+        yield return null; // attende un frame
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        isPaused = true;
     }
 
     public void LoadMainMenu()

@@ -19,7 +19,7 @@ public class BinManager : MonoBehaviour
         if (daSeparare != null && !daSeparare.separato)
         {
             Debug.Log("⚠️ Oggetto composto! Devi separarlo prima.");
-            FindObjectOfType<UIManager>()?.MostraMessaggio("⚠️ Prima separa gli oggetti!");
+            UIManager.Instance?.MostraMessaggio(" Prima separa gli oggetti!");
             RespingeOggetto(other);
             return;
         }
@@ -29,7 +29,7 @@ public class BinManager : MonoBehaviour
         if (lavabile != null && lavabile.DeveEssereLavato())
         {
             Debug.Log("❌ Oggetto sporco! Non può essere buttato.");
-            FindObjectOfType<UIManager>()?.MostraMessaggio("❌ Questo oggetto è sporco! Lavalo prima.");
+            UIManager.Instance?.MostraMessaggio(" Questo oggetto è sporco! Lavalo prima.");
             RespingeOggetto(other);
             return;
         }
@@ -38,14 +38,15 @@ public class BinManager : MonoBehaviour
         if (item.trashType == tipoAccettato)
         {
             Debug.Log("✅ Oggetto corretto, accettato.");
-            FindObjectOfType<UIManager>()?.MostraMessaggio("✅ Oggetto corretto! Bravo.");
-            GameManager.Instance?.RifiutoSmaltito();
+            UIManager.Instance?.MostraMessaggio(" Oggetto corretto! Bravo.");
+            GameManager.Instance?.RifiutoSmaltitoCorretto();
             Destroy(other.gameObject);
         }
         else
         {
             Debug.Log("❌ Oggetto nel bidone sbagliato.");
-            FindObjectOfType<UIManager>()?.MostraMessaggio("❌ Questo oggetto non va in questo bidone!");
+            UIManager.Instance?.MostraMessaggio(" Questo oggetto non va in questo bidone!");
+            GameManager.Instance?.RifiutoSmaltitoErrato();
             RespingeOggetto(other);
         }
     }

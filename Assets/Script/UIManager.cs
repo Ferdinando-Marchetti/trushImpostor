@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿
+
+using UnityEngine;
 using TMPro;
 using System.Collections;
 
@@ -15,6 +17,11 @@ public class UIManager : MonoBehaviour
     [Header("🏆 Messaggio di vittoria")]
     public GameObject vittoriaPanel;
     public TextMeshProUGUI vittoriaTesto;
+
+    // 🔽 NUOVO: Risparmio ambientale (CO2)
+    [Header("🌱 Risparmio ambientale")]
+    public GameObject messaggioCO2Panel;
+    public TextMeshProUGUI messaggioCO2Text;
 
     private float timer = 0f;
 
@@ -86,5 +93,24 @@ public class UIManager : MonoBehaviour
         else
             Debug.LogWarning("⚠️ punteggioText non è assegnato!");
     }
-
+    // 🔽 NUOVO metodo per mostrare il risparmio ambientale
+    public void MostraMessaggioCO2(float valore)
+    {
+        if (messaggioCO2Panel != null && messaggioCO2Text != null)
+        {
+            messaggioCO2Panel.SetActive(true);
+            messaggioCO2Text.text = $"🌱 Hai risparmiato {valore:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ messaggioCO2Panel o messaggioCO2Text non sono assegnati!");
+        }
+    }
 }
+
+
+
+
+
+
+ 

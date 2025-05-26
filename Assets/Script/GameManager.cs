@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [Header("📊 Punteggio")]
     public TextMeshProUGUI punteggioText;
 
+    // Nuovo: riferimento al risparmio ambientale
+    private float co2Risparmiata = 0f;
 
     private IInteractable currentTarget;
 
@@ -108,6 +110,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void RifiutoSmaltitoErrato()
+
+
     {
         TogliPunti(5);
         Debug.Log("❌ Rifiuto smaltito nel bidone sbagliato.");
@@ -129,6 +133,12 @@ public class GameManager : MonoBehaviour
             // Uso entrambe le coroutine del primo file
             StartCoroutine(ui.MostraVittoria("Hai smaltito tutti i rifiuti! Hai vinto!"));
             StartCoroutine(ui.AvviaQuiz());
+           
+            // Nuovo → aggiorna messaggio ambientale e punteggio
+            ui.MostraMessaggioCO2(co2Risparmiata);
+
+            int bonusCO2 = Mathf.RoundToInt(co2Risparmiata * 10); // es. 0.2kg = +2 punti
+            AggiungiPunti(bonusCO2);
         }
         else
         {
@@ -147,5 +157,4 @@ public class GameManager : MonoBehaviour
         punteggio = Mathf.Max(0, punteggio - punti);
         UIManager.Instance.AggiornaPunteggioUI(punteggio);
     }
-
 }

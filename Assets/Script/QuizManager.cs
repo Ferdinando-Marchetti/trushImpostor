@@ -38,6 +38,7 @@ public class QuizManager : MonoBehaviour
         canvasQuiz.SetActive(true);
         indiceCorrente = 0;
         MostraDomanda();
+        Movement.inputBloccato = true; // Blocca il movimento del giocatore durante il quiz
     }
 
     void MostraDomanda()

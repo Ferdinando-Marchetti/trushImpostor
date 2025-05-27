@@ -31,16 +31,6 @@ public class GameManager : MonoBehaviour
     // AGGIUNTO: Riferimento diretto al QuizManager
     public QuizManager quizManager;
 
-    private void Start()
-    {
-        // Sblocca movimento ogni volta che la scena viene caricata
-        Movement.inputBloccato = false;
-
-        // (opzionale) Nascondi il cursore se sei in gioco
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
 
     private void Awake()
     {
@@ -127,7 +117,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"🎉 VITTORIA! Smaltiti: {rifiutiSmaltiti} / Totale: {totaleRifiuti}");
 
-        UIManager ui = FindObjectOfType<UIManager>();
+        UIManager ui = Object.FindFirstObjectByType<UIManager>();
         if (ui != null)
         {
             // Uso entrambe le coroutine del primo file

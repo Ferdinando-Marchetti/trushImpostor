@@ -14,7 +14,7 @@ public class Lavandino : MonoBehaviour
     private void Update()
     {
         // Rileva se il giocatore ha un oggetto in mano
-        PickupThrow pickup = FindObjectOfType<PickupThrow>();
+        PickupThrow pickup = Object.FindFirstObjectByType<PickupThrow>();
 
         if (pickup != null && pickup.heldObject != null)
         {
@@ -27,7 +27,7 @@ public class Lavandino : MonoBehaviour
                 if (pulizia != null && pulizia.DeveEssereLavato())
                 {
                     pulizia.Lava();
-                    FindObjectOfType<UIManager>()?.MostraMessaggio("🧼 Oggetto lavato!");
+                    Object.FindFirstObjectByType<UIManager>()?.MostraMessaggio("🧼 Oggetto lavato!");
                 }
             }
         }

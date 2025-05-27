@@ -23,7 +23,25 @@ public class UIManager : MonoBehaviour
     public GameObject messaggioCO2Panel;
     public TextMeshProUGUI messaggioCO2Text;
 
+    [Header("📘 Tutorial")]
+    public GameObject pannelloTutorial;
+    private bool tutorialAperto = false;
+
+
     private float timer = 0f;
+
+    void Start()
+    {
+        // Mostra il tutorial all'avvio
+        if (pannelloTutorial != null)
+        {
+            pannelloTutorial.SetActive(true);
+            tutorialAperto = true;
+            Movement.inputBloccato = true; // Blocca il movimento se il tutorial è aperto
+        }
+    }
+
+
 
     private void Awake()
     {
@@ -40,6 +58,18 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        // 👇 Tasto T per aprire/chiudere il tutorial
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (pannelloTutorial != null)
+            {
+                tutorialAperto = !tutorialAperto;
+                pannelloTutorial.SetActive(tutorialAperto);
+            }
+        }
+       
+
+
         if (notificaPanel.activeSelf)
         {
             timer -= Time.deltaTime;
@@ -106,6 +136,17 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("⚠️ messaggioCO2Panel o messaggioCO2Text non sono assegnati!");
         }
     }
+
+    public void ChiudiTutorial()
+    {
+        if (pannelloTutorial != null)
+        {
+            pannelloTutorial.SetActive(false);
+            tutorialAperto = false;
+            Movement.inputBloccato = false; // Sblocca il movimento del giocatore
+        }
+    }
+
 }
 
 
@@ -113,4 +154,3 @@ public class UIManager : MonoBehaviour
 
 
 
- 

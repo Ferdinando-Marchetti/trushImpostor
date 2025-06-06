@@ -13,10 +13,16 @@ public class MenuManager : MonoBehaviour
     public void AvviaGioco()
     {
         if (musicaMenu != null)
+        {
             StartCoroutine(FadeOutMusicaEAvviaScena());
+        }
         else
+        {
+            MusicManager.Instance?.PlayMusic();
             SceneManager.LoadScene("SampleScene");
+        }
     }
+
 
     public void ApriOpzioni()
     {
@@ -63,8 +69,15 @@ public class MenuManager : MonoBehaviour
         musicaMenu.Stop();
         musicaMenu.volume = volumeIniziale;
 
+        yield return new WaitForSeconds(0.1f); // Piccola attesa di sicurezza
+
+        // AVVIA la musica del gioco PRIMA di cambiare scena
+        MusicManager.Instance?.PlayMusic();
+
         SceneManager.LoadScene("SampleScene");
     }
+
+
     public void ApriCrediti()
     {
         pannelloCrediti.SetActive(true);

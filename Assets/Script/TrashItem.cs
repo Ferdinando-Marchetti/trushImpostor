@@ -3,4 +3,5 @@ using UnityEngine;
 public class TrashItem : MonoBehaviour
 {
     public string trashType; // plastica, carta, vetro, umido
+    public bool ËEsplosivo = false; // Aggiunto per identificare rifiuti esplosivi
 }

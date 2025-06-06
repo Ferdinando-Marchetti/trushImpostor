@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class PickupThrow : MonoBehaviour
 {
-    public Transform holdPoint; // Oggetto vuoto davanti alla camera (es: "HandHold")
+    private GameManager gm;
+
+    void Start()
+    {
+        gm = GameManager.Instance;
+    }
+
+    public Transform holdPoint;
     public float pickupRange = 3f;
     public float throwForce = 500f;
 
@@ -11,6 +18,17 @@ public class PickupThrow : MonoBehaviour
 
     void Update()
     {
+        // 💥 ESPLOSIONE se si salta con oggetto esplosivo
+        if (heldObject != null && Input.GetButtonDown("Jump"))
+        {
+            TrashItem item = heldObject.GetComponent<TrashItem>();
+            if (item != null && item.èEsplosivo)
+            {
+                gm?.Esplodi();
+                return;
+            }
+        }
+
         // Raccolta e rilascio con E
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -35,8 +53,6 @@ public class PickupThrow : MonoBehaviour
                 if (separabile != null && !separabile.separato)
                 {
                     separabile.Separa();
-
-                    // Rilascia l’oggetto composito dopo separazione
                     heldObject = null;
                     heldRb = null;
                 }
@@ -53,12 +69,10 @@ public class PickupThrow : MonoBehaviour
 
     void TryPickup()
     {
-        // Escludi il layer "IgnorePickup"
         int mask = ~LayerMask.GetMask("IgnorePickup");
         Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, mask))
-
         {
             if (hit.collider.CompareTag("Trash"))
             {
@@ -112,8 +126,6 @@ public class PickupThrow : MonoBehaviour
                 heldRb.linearVelocity = Vector3.zero;
                 heldRb.angularVelocity = Vector3.zero;
                 heldRb.AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
-
-                Debug.Log($"[Lancio] isKinematic: {heldRb.isKinematic}");
             }
 
             heldObject = null;

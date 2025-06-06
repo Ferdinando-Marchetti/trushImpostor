@@ -1,13 +1,16 @@
-﻿
-
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     // Singleton
     public static UIManager Instance;
+
+    [Header("Tempo Scaduto")]
+    public GameObject tempoScadutoPanel;
+
 
     [Header("🟢 Messaggi normali")]
     public GameObject notificaPanel;
@@ -18,7 +21,6 @@ public class UIManager : MonoBehaviour
     public GameObject vittoriaPanel;
     public TextMeshProUGUI vittoriaTesto;
 
-    // 🔽 NUOVO: Risparmio ambientale (CO2)
     [Header("🌱 Risparmio ambientale")]
     public GameObject messaggioCO2Panel;
     public TextMeshProUGUI messaggioCO2Text;
@@ -27,38 +29,36 @@ public class UIManager : MonoBehaviour
     public GameObject pannelloTutorial;
     private bool tutorialAperto = false;
 
+    [Header("♻️ Conteggio Rifiuti")]
+    public TextMeshProUGUI rifiutiText;
+
+    [Header("📊 Punteggio")]
+    public TextMeshProUGUI punteggioText;
+
+    [Header("⏱️ Timer UI")]
+    public TextMeshProUGUI timerText;
 
     private float timer = 0f;
 
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
     void Start()
     {
-        // Mostra il tutorial all'avvio
         if (pannelloTutorial != null)
         {
             pannelloTutorial.SetActive(true);
             tutorialAperto = true;
-            Movement.inputBloccato = true; // Blocca il movimento se il tutorial è aperto
-        }
-    }
-
-
-
-    private void Awake()
-    {
-        // Inizializza il singleton
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+            Movement.inputBloccato = true;
         }
     }
 
     void Update()
     {
-        // 👇 Tasto T per aprire/chiudere il tutorial
+        // T per aprire/chiudere tutorial
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (pannelloTutorial != null)
@@ -67,8 +67,6 @@ public class UIManager : MonoBehaviour
                 pannelloTutorial.SetActive(tutorialAperto);
             }
         }
-       
-
 
         if (notificaPanel.activeSelf)
         {
@@ -82,24 +80,36 @@ public class UIManager : MonoBehaviour
 
     public void MostraMessaggio(string testo)
     {
-        notificaTesto.text = testo;
-        notificaPanel.SetActive(true);
-        timer = durataMessaggio;
+        if (notificaTesto != null)
+        {
+            notificaTesto.text = testo;
+            notificaTesto.alignment = TextAlignmentOptions.Center; // ⬅️ Allinea al centro
+        }
+
+        if (notificaPanel != null)
+        {
+            notificaPanel.SetActive(true);
+            timer = durataMessaggio;
+        }
     }
 
     public IEnumerator MostraVittoria(string testo)
     {
-        vittoriaTesto.text = testo;
-        vittoriaPanel.SetActive(true);
+        if (vittoriaTesto != null)
+            vittoriaTesto.text = testo;
 
-        yield return new WaitForSeconds(5f); // aspetta 5 secondi
+        if (vittoriaPanel != null)
+            vittoriaPanel.SetActive(true);
 
-        vittoriaPanel.SetActive(false);
+        yield return new WaitForSeconds(5f);
+
+        if (vittoriaPanel != null)
+            vittoriaPanel.SetActive(false);
     }
 
     public IEnumerator AvviaQuiz()
     {
-        yield return new WaitForSeconds(5f); // aspetta 5 secondi
+        yield return new WaitForSeconds(5f);
 
         QuizManager quiz = FindFirstObjectByType<QuizManager>();
         if (quiz != null)
@@ -113,8 +123,6 @@ public class UIManager : MonoBehaviour
 
         Debug.Log("🧠 Quiz iniziato!");
     }
-    [Header("📊 Punteggio")]
-    public TextMeshProUGUI punteggioText;
 
     public void AggiornaPunteggioUI(int punteggio)
     {
@@ -123,13 +131,46 @@ public class UIManager : MonoBehaviour
         else
             Debug.LogWarning("⚠️ punteggioText non è assegnato!");
     }
-    // 🔽 NUOVO metodo per mostrare il risparmio ambientale
-    public void MostraMessaggioCO2(float valore)
+
+    public void AggiornaConteggioRifiuti(int smaltiti, int totali)
+    {
+        if (rifiutiText != null)
+            rifiutiText.text = $"Rifiuti smaltiti correttamente: {smaltiti} / {totali}";
+        else
+            Debug.LogWarning("⚠️ rifiutiText non è assegnato!");
+    }
+
+    public void AggiornaTimerUI(float tempo)
+    {
+        if (timerText != null)
+        {
+            tempo = Mathf.Max(0f, tempo); // Evita numeri negativi
+            int minuti = Mathf.FloorToInt(tempo / 60f);
+            int secondi = Mathf.FloorToInt(tempo % 60f);
+            timerText.text = $"Tempo: {minuti:D2}:{secondi:D2}";
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ timerText non assegnato!");
+        }
+    }
+
+
+    public void MostraMessaggioCO2()
     {
         if (messaggioCO2Panel != null && messaggioCO2Text != null)
         {
-            messaggioCO2Panel.SetActive(true);
-            messaggioCO2Text.text = $"🌱 Hai risparmiato {valore:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
+            BinManager binManager = FindFirstObjectByType<BinManager>();
+            if (binManager != null)
+            {
+                float risparmio = binManager.co2Risparmiata;
+                messaggioCO2Panel.SetActive(true);
+                messaggioCO2Text.text = $" Hai risparmiato {risparmio:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ BinManager non trovato nella scena!");
+            }
         }
         else
         {
@@ -143,14 +184,18 @@ public class UIManager : MonoBehaviour
         {
             pannelloTutorial.SetActive(false);
             tutorialAperto = false;
-            Movement.inputBloccato = false; // Sblocca il movimento del giocatore
+            Movement.inputBloccato = false;
         }
     }
 
+    public void RiprovaLivello()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void TornaAlMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
 }
-
-
-
-
-
-

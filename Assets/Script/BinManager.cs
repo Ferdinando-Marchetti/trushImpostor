@@ -2,11 +2,11 @@
 
 public class BinManager : MonoBehaviour
 {
-    public string tipoAccettato; // esempio: "plastica", "carta", "vetro", "umido"
+    public string tipoAccettato;
+    public float co2Risparmiata = 0.2f;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Verifica se è un rifiuto valido
         TrashItem item = other.GetComponent<TrashItem>();
         if (item == null)
         {
@@ -14,7 +14,6 @@ public class BinManager : MonoBehaviour
             return;
         }
 
-        // Controlla se va separato
         RichiedeSeparazione daSeparare = other.GetComponent<RichiedeSeparazione>();
         if (daSeparare != null && !daSeparare.separato)
         {
@@ -24,7 +23,6 @@ public class BinManager : MonoBehaviour
             return;
         }
 
-        // Controlla se è sporco
         RichiedePulizia lavabile = other.GetComponent<RichiedePulizia>();
         if (lavabile != null && lavabile.DeveEssereLavato())
         {
@@ -34,11 +32,11 @@ public class BinManager : MonoBehaviour
             return;
         }
 
-        // Controlla se è il tipo giusto
         if (item.trashType == tipoAccettato)
         {
             Debug.Log("✅ Oggetto corretto, accettato.");
             UIManager.Instance?.MostraMessaggio(" Oggetto corretto! Bravo.");
+            GameManager.Instance?.AggiungiCO2(co2Risparmiata);
             GameManager.Instance?.RifiutoSmaltitoCorretto();
             Destroy(other.gameObject);
         }
@@ -46,8 +44,17 @@ public class BinManager : MonoBehaviour
         {
             Debug.Log("❌ Oggetto nel bidone sbagliato.");
             UIManager.Instance?.MostraMessaggio(" Questo oggetto non va in questo bidone!");
-            GameManager.Instance?.RifiutoSmaltitoErrato();
-            RespingeOggetto(other);
+
+            // 💥 ESPLOSIONE se oggetto è esplosivo
+            if (item.èEsplosivo)
+            {
+                GameManager.Instance?.Esplodi();
+            }
+            else
+            {
+                GameManager.Instance?.RifiutoSmaltitoErrato(other.gameObject);
+                RespingeOggetto(other);
+            }
         }
     }
 

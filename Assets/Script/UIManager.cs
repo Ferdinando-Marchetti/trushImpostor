@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
             {
                 tutorialAperto = !tutorialAperto;
                 pannelloTutorial.SetActive(tutorialAperto);
+                Movement.inputBloccato = tutorialAperto;
             }
         }
 

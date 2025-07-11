@@ -88,6 +88,14 @@ public class PickupThrow : MonoBehaviour
                         heldObject.transform.SetParent(holdPoint);
                         heldObject.transform.localPosition = Vector3.zero;
                         heldObject.transform.localRotation = Quaternion.identity;
+
+                        // Controllo esplosivo e mostra messaggio
+                        TrashItem item = heldObject.GetComponent<TrashItem>();
+                        if (item != null && item.èEsplosivo)
+                        {
+                            Debug.Log("Oggetto esplosivo raccolto: mostro messaggio");
+                            UIManager.Instance?.MostraMessaggioEsplosivo();
+                        }
                     }
                     else
                     {
@@ -97,6 +105,8 @@ public class PickupThrow : MonoBehaviour
             }
         }
     }
+
+
 
     void DropObject()
     {

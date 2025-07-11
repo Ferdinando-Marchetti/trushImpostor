@@ -1,16 +1,14 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    // Singleton
     public static UIManager Instance;
 
     [Header("Tempo Scaduto")]
     public GameObject tempoScadutoPanel;
-
 
     [Header("🟢 Messaggi normali")]
     public GameObject notificaPanel;
@@ -38,6 +36,10 @@ public class UIManager : MonoBehaviour
     [Header("⏱️ Timer UI")]
     public TextMeshProUGUI timerText;
 
+    [Header("💥 Esplosivi")]
+    public GameObject messaggioEsplosivoPanel; // 🔥 nuovo panel
+    private bool haMostratoMessaggioEsplosivo = false; // 🔥 flag
+
     private float timer = 0f;
 
     void Awake()
@@ -54,11 +56,13 @@ public class UIManager : MonoBehaviour
             tutorialAperto = true;
             Movement.inputBloccato = true;
         }
+
+        if (messaggioEsplosivoPanel != null)
+            messaggioEsplosivoPanel.SetActive(false); // 🔥 Nascondi a inizio
     }
 
     void Update()
     {
-        // T per aprire/chiudere tutorial
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (pannelloTutorial != null)
@@ -79,12 +83,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void MostraMessaggioEsplosivo()
+    {
+        if (!haMostratoMessaggioEsplosivo && messaggioEsplosivoPanel != null)
+        {
+            messaggioEsplosivoPanel.SetActive(true);
+            haMostratoMessaggioEsplosivo = true;
+            StartCoroutine(NascondiMessaggioEsplosivo());
+        }
+    }
+
+    private IEnumerator NascondiMessaggioEsplosivo()
+    {
+        yield return new WaitForSeconds(6f);
+        messaggioEsplosivoPanel.SetActive(false);
+    }
+
     public void MostraMessaggio(string testo)
     {
         if (notificaTesto != null)
         {
             notificaTesto.text = testo;
-            notificaTesto.alignment = TextAlignmentOptions.Center; // ⬅️ Allinea al centro
+            notificaTesto.alignment = TextAlignmentOptions.Center;
         }
 
         if (notificaPanel != null)
@@ -145,7 +165,7 @@ public class UIManager : MonoBehaviour
     {
         if (timerText != null)
         {
-            tempo = Mathf.Max(0f, tempo); // Evita numeri negativi
+            tempo = Mathf.Max(0f, tempo);
             int minuti = Mathf.FloorToInt(tempo / 60f);
             int secondi = Mathf.FloorToInt(tempo % 60f);
             timerText.text = $"Tempo: {minuti:D2}:{secondi:D2}";
@@ -155,7 +175,6 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("⚠️ timerText non assegnato!");
         }
     }
-
 
     public void MostraMessaggioCO2()
     {
@@ -191,6 +210,7 @@ public class UIManager : MonoBehaviour
 
     public void RiprovaLivello()
     {
+        MusicManager.Instance?.PlayMusic();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -198,5 +218,4 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
-
 }

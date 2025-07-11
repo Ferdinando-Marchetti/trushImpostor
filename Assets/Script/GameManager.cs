@@ -3,11 +3,10 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-
 public class GameManager : MonoBehaviour
 {
     public AudioClip suonoEsplosione;
-    public Animator effettoMorteAnimator; // Un animatore su uno UI panel
+    public GameObject filtroRossoPanel; // 🔴 pannello rosso per la morte
     public float ritardoMorte = 2f;
 
     public float co2Risparmiata = 0f;
@@ -138,7 +137,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.AggiornaPunteggioUI(punteggio);
     }
 
-
     void Vittoria()
     {
         timerAttivo = false;
@@ -207,22 +205,27 @@ public class GameManager : MonoBehaviour
         co2Risparmiata += quantità;
         Debug.Log($"🌱 CO2 Risparmiata Totale: {co2Risparmiata}");
     }
+
     public void Esplodi()
     {
+        // Suono subito
+        if (suonoEsplosione != null)
+            AudioSource.PlayClipAtPoint(suonoEsplosione, Camera.main.transform.position);
+
+        // Ferma musica
+        if (MusicManager.Instance != null)
+            MusicManager.Instance.StopMusic();
+
         timerAttivo = false;
         Movement.inputBloccato = true;
 
         Debug.Log("💥 Esplosione! Il giocatore è morto.");
 
-        // 🔊 Riproduci suono
-        if (suonoEsplosione != null)
-            AudioSource.PlayClipAtPoint(suonoEsplosione, Camera.main.transform.position);
+        // Mostra pannello rosso
+        if (filtroRossoPanel != null)
+            filtroRossoPanel.SetActive(true);
 
-        // 🎞️ Attiva animazione UI morte
-        if (effettoMorteAnimator != null)
-            effettoMorteAnimator.SetTrigger("Esploso");
-
-        // ⏱️ Mostra menu dopo un ritardo
+        // Mostra messaggio di morte dopo ritardo
         StartCoroutine(MostraMorteDopoRitardo());
     }
 
@@ -236,18 +239,14 @@ public class GameManager : MonoBehaviour
             panel.SetActive(true);
         }
 
-
         if (UIManager.Instance != null)
         {
             UIManager.Instance.tempoScadutoPanel.SetActive(true);
-            UIManager.Instance.MostraMessaggio("💥 BOOM! Sei esploso!");
+            UIManager.Instance.MostraMessaggio("BOOM! Sei esploso!");
         }
         else
         {
             Debug.LogWarning("⚠️ UIManager non trovato!");
         }
     }
-
-
-
 }

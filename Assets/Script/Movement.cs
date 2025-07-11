@@ -13,17 +13,17 @@ public class Movement : MonoBehaviour
 
     private float xRotation = 0f;
     private float yVelocity = 0f;
-    private float initY;
 
     private Camera cameraChild;
     private CharacterController controller;
+
+    public TrashItem oggettoInMano; // ← IMPORTANTE: oggetto che tiene in mano
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        initY = transform.position.y;
         cameraChild = GetComponentInChildren<Camera>();
         controller = GetComponent<CharacterController>();
     }
@@ -42,23 +42,26 @@ public class Movement : MonoBehaviour
             Cursor.visible = false;
         }
 
-        // Movimento orizzontale
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        // Corsa con Shift
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? speed * runMultiplier : speed;
-
         Vector3 move = transform.right * x + transform.forward * z;
         move *= currentSpeed;
 
-        // Salto
         if (controller.isGrounded)
         {
-            yVelocity = -2f; // forza verso il basso per mantenere contatto con il suolo
+            yVelocity = -2f;
 
             if (Input.GetButtonDown("Jump"))
             {
+                // 💣 Se tiene in mano rifiuto esplosivo → esplodi
+                if (oggettoInMano != null && oggettoInMano.èEsplosivo)
+                {
+                    GameManager.Instance.Esplodi();
+                    return;
+                }
+
                 yVelocity = Mathf.Sqrt(jumpForce * -2f * gravity);
             }
         }
@@ -68,10 +71,8 @@ public class Movement : MonoBehaviour
         }
 
         move.y = yVelocity;
-
         controller.Move(move * Time.deltaTime);
 
-        // Rotazione della visuale (mouse look)
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 

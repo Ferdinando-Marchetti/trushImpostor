@@ -34,6 +34,7 @@ public class BinManager : MonoBehaviour
 
         if (item.trashType == tipoAccettato)
         {
+            // ✅ Oggetto nel bidone giusto, anche se esplosivo va accettato
             Debug.Log("✅ Oggetto corretto, accettato.");
             UIManager.Instance?.MostraMessaggio(" Oggetto corretto! Bravo.");
             GameManager.Instance?.AggiungiCO2(co2Risparmiata);
@@ -42,12 +43,14 @@ public class BinManager : MonoBehaviour
         }
         else
         {
+            // ❌ Oggetto nel bidone sbagliato
             Debug.Log("❌ Oggetto nel bidone sbagliato.");
             UIManager.Instance?.MostraMessaggio(" Questo oggetto non va in questo bidone!");
 
-            // 💥 ESPLOSIONE se oggetto è esplosivo
             if (item.èEsplosivo)
             {
+                // 💥 SOLO ORA fa esplodere
+                Debug.Log("💣 Era esplosivo! Esplode.");
                 GameManager.Instance?.Esplodi();
             }
             else

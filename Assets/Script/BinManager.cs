@@ -37,6 +37,36 @@ public class BinManager : MonoBehaviour
             // ✅ Oggetto nel bidone giusto, anche se esplosivo va accettato
             Debug.Log("✅ Oggetto corretto, accettato.");
             UIManager.Instance?.MostraMessaggio(" Oggetto corretto! Bravo.");
+            switch (tipoAccettato)
+            {
+                case "plastica":
+                    Debug.Log("♻️ Plastica smaltita correttamente.");
+                    co2Risparmiata += 0.1f; // Aggiungi CO2 risparmiata per plastica
+                    break;
+                case "carta":
+                    Debug.Log("📄 Carta smaltita correttamente.");
+                    co2Risparmiata += 0.15f; // Aggiungi CO2 risparmiata per carta
+                    break;
+                case "vetro":
+                    Debug.Log("🍶 Vetro smaltito correttamente.");
+                    co2Risparmiata += 0.25f; // Aggiungi CO2 risparmiata per vetro
+                    break;
+                case "umido":
+                    Debug.Log("🥕 Umido smaltito correttamente.");
+                    co2Risparmiata += 0.05f; // Aggiungi CO2 risparmiata per umido
+                    break;
+                case "indifferenziato":
+                    Debug.Log("🗑️ Indifferenziato smaltito correttamente.");
+                    co2Risparmiata += 0.02f; // Aggiungi CO2 risparmiata per indifferenziato
+                    break;
+                case "esplosivo":
+                    Debug.Log("💣 Esplosivo smaltito correttamente.");
+                    co2Risparmiata += 0.5f; // Aggiungi CO2 risparmiata per esplosivi
+                    break;
+                default:
+                    Debug.LogWarning($"Tipo di rifiuto sconosciuto: {tipoAccettato}");
+                    break;
+            }
             GameManager.Instance?.AggiungiCO2(co2Risparmiata);
             GameManager.Instance?.RifiutoSmaltitoCorretto();
             Destroy(other.gameObject);

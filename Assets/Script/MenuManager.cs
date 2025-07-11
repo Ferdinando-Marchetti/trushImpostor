@@ -8,25 +8,42 @@ public class MenuManager : MonoBehaviour
     public GameObject pannelloOpzioni;
     public AudioSource musicaMenu;
     public GameObject pannelloCrediti;
+    public GameObject schermataIntro; // Pannello con la spiegazione
+    private bool inAttesaInvio = false;
+
 
 
     public void AvviaGioco()
     {
-        if (musicaMenu != null)
+        // Mostra la schermata introduttiva
+        schermataIntro.SetActive(true);
+        MenuPrincipale.SetActive(false);
+        inAttesaInvio = true;
+    }
+    void Update()
+    {
+        if (inAttesaInvio && Input.GetKeyDown(KeyCode.Return)) // Invio
         {
-            StartCoroutine(FadeOutMusicaEAvviaScena());
-        }
-        else
-        {
-            MusicManager.Instance?.PlayMusic();
-            SceneManager.LoadScene("SampleScene");
+            inAttesaInvio = false;
+
+            if (musicaMenu != null)
+            {
+                StartCoroutine(FadeOutMusicaEAvviaScena());
+            }
+            else
+            {
+                schermataIntro.SetActive(false);
+                MusicManager.Instance?.PlayMusic();
+                SceneManager.LoadScene("CASA");
+            }
         }
     }
 
+
     public void ChangeScene(string sceneName)
-    { 
+    {
         {
-         SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(sceneName);
         }
     }
 
@@ -82,7 +99,7 @@ public class MenuManager : MonoBehaviour
         // AVVIA la musica del gioco PRIMA di cambiare scena
         MusicManager.Instance?.PlayMusic();
 
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("CASA");
     }
 
 

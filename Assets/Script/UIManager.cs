@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -180,17 +180,9 @@ public class UIManager : MonoBehaviour
     {
         if (messaggioCO2Panel != null && messaggioCO2Text != null)
         {
-            BinManager binManager = FindFirstObjectByType<BinManager>();
-            if (binManager != null)
-            {
-                float risparmio = binManager.co2Risparmiata;
-                messaggioCO2Panel.SetActive(true);
-                messaggioCO2Text.text = $" Hai risparmiato {risparmio:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
-            }
-            else
-            {
-                Debug.LogWarning("⚠️ BinManager non trovato nella scena!");
-            }
+            float risparmio = GameManager.Instance.co2Risparmiata;
+            messaggioCO2Panel.SetActive(true);
+            messaggioCO2Text.text = $" Hai risparmiato {risparmio:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
         }
         else
         {

@@ -89,12 +89,27 @@ public class PickupThrow : MonoBehaviour
                         heldObject.transform.localPosition = Vector3.zero;
                         heldObject.transform.localRotation = Quaternion.identity;
 
-                        // Controllo esplosivo e mostra messaggio
+                        // Controllo tipo oggetto e mostra messaggi solo la prima volta
                         TrashItem item = heldObject.GetComponent<TrashItem>();
-                        if (item != null && item.èEsplosivo)
+                        if (item != null)
                         {
-                            Debug.Log("Oggetto esplosivo raccolto: mostro messaggio");
-                            UIManager.Instance?.MostraMessaggioEsplosivo();
+                            if (item.èEsplosivo)
+                            {
+                                Debug.Log("Oggetto esplosivo raccolto: mostro messaggio");
+                                UIManager.Instance?.MostraMessaggioEsplosivo();
+                            }
+
+                            if (item.èLavabile && !item.èStatoRaccolto)
+                            {
+                                item.èStatoRaccolto = true;
+                                UIManager.Instance?.MostraMessaggioLavabile();
+                            }
+
+                            if (item.èComposto && !item.èStatoRaccolto)
+                            {
+                                item.èStatoRaccolto = true;
+                                UIManager.Instance?.MostraMessaggioRifiutoComposto();
+                            }
                         }
                     }
                     else
@@ -105,8 +120,6 @@ public class PickupThrow : MonoBehaviour
             }
         }
     }
-
-
 
     void DropObject()
     {

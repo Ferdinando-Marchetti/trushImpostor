@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scuola.unity
     guid: 66a608d7261ab214b89aa26c76e7c8e9
+  - enabled: 1
+    path: Assets/Scenes/STADIO.unity
+    guid: 4e0fddc2ec1e5584f93add2714c497ed
+  - enabled: 1
+    path: Assets/Scenes/SPIAGGIA.unity
+    guid: f205d0fd1ca10de45afad82aca2275a9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0

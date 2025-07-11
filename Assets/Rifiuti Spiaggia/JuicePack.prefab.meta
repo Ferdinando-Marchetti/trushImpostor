@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 729947c55ab92da419e3d816b330f7d8
-timeCreated: 1570297551
+guid: 4e3d4cb66ba4baa4ba96760c052f6311
+timeCreated: 1568807189
 licenseType: Store
 NativeFormatImporter:
   externalObjects: {}
@@ -13,5 +13,5 @@ AssetOrigin:
   productId: 154349
   packageName: Food Pack Mixed
   packageVersion: 1.0
-  assetPath: Assets/Food Pack Mixed/Prefabs/Chips.prefab
+  assetPath: Assets/Food Pack Mixed/Prefabs/JuicePack.prefab
   uploadId: 332924

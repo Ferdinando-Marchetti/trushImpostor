@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
     public AudioSource musicaMenu;
     public GameObject pannelloCrediti;
     public GameObject schermataIntro; // Pannello con la spiegazione
+    public GameObject pannelloLivelli; // Pannello con i livelli
     private bool inAttesaInvio = false;
 
 
@@ -28,7 +29,7 @@ public class MenuManager : MonoBehaviour
 
             if (musicaMenu != null)
             {
-                StartCoroutine(FadeOutMusicaEAvviaScena());
+                StartCoroutine(FadeOutMusicaEAvviaScena("CASA"));
             }
             else
             {
@@ -38,15 +39,6 @@ public class MenuManager : MonoBehaviour
             }
         }
     }
-
-
-    public void ChangeScene(string sceneName)
-    {
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-    }
-
 
 
     public void ApriOpzioni()
@@ -72,13 +64,45 @@ public class MenuManager : MonoBehaviour
         Debug.Log("🧑‍💻 Realizzato da Paolo Paradiso, 2025");
     }
 
+    public void ApriLivelli()
+    {
+        if (pannelloLivelli!= null)
+            pannelloLivelli.SetActive(true);
+
+        if (MenuPrincipale != null)
+            MenuPrincipale.SetActive(false);
+    }
+
+    public void ChiudiLivelli()
+    {
+        if (pannelloLivelli != null)
+            pannelloLivelli.SetActive(false);
+        if (MenuPrincipale != null)
+            MenuPrincipale.SetActive(true);
+    }
+
+    public void SelezionaLivello(string nomeLivello)
+    {
+        Debug.Log($"🔍 Hai selezionato il livello: {nomeLivello}");
+        if (musicaMenu != null)
+        {
+            StartCoroutine(FadeOutMusicaEAvviaScena(nomeLivello));
+        }
+        else
+        {
+            pannelloLivelli.SetActive(false);
+            MusicManager.Instance?.PlayMusic();
+            SceneManager.LoadScene(nomeLivello);
+        }
+    }
+
     public void EsciGioco()
     {
         Application.Quit();
         Debug.Log("🏁 Hai chiuso il gioco");
     }
 
-    private IEnumerator FadeOutMusicaEAvviaScena()
+    private IEnumerator FadeOutMusicaEAvviaScena(string nomeLivello)
     {
         float durata = 1f;
         float volumeIniziale = musicaMenu.volume;
@@ -99,7 +123,7 @@ public class MenuManager : MonoBehaviour
         // AVVIA la musica del gioco PRIMA di cambiare scena
         MusicManager.Instance?.PlayMusic();
 
-        SceneManager.LoadScene("CASA");
+        SceneManager.LoadScene(nomeLivello);
     }
 
 

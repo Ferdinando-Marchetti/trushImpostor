@@ -2570,18 +2570,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537cb5c83bc4c9e40a38029650cec915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messaggioPanel: {fileID: 0}
-  messaggioText: {fileID: 0}
+  tempoScadutoPanel: {fileID: 426047112}
+  notificaPanel: {fileID: 154941916}
+  notificaTesto: {fileID: 572962018}
+  durataMessaggio: 2
+  vittoriaPanel: {fileID: 1525474456}
+  vittoriaTesto: {fileID: 29449115}
+  messaggioCO2Panel: {fileID: 697031712}
+  messaggioCO2Text: {fileID: 476887380}
+  pannelloTutorial: {fileID: 361439157}
+  rifiutiText: {fileID: 2112874775}
+  punteggioText: {fileID: 1625819679}
+  timerText: {fileID: 1586222760}
+  messaggioEsplosivoPanel: {fileID: 849031250}
+  messaggioEsplosivoText: {fileID: 1562169865}
   messaggioLavabilePanel: {fileID: 1719157560}
   messaggioLavabileText: {fileID: 1766819534}
   messaggioCompostoPanel: {fileID: 1549998212}
   messaggioCompostoText: {fileID: 640874649}
-  messaggioEsplosivoPanel: {fileID: 849031250}
-  messaggioEsplosivoText: {fileID: 0}
-  timerText: {fileID: 1586222760}
-  punteggioText: {fileID: 1625819679}
-  conteggioRifiutiText: {fileID: 0}
-  tempoScadutoPanel: {fileID: 426047112}
 --- !u!4 &504321086
 Transform:
   m_ObjectHideFlags: 0

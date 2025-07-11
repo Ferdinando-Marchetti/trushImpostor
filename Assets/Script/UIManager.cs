@@ -1,84 +1,97 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("Pannelli Messaggi")]
-    public GameObject messaggioPanel;
-    public TMP_Text messaggioText;
+    [Header("Tempo Scaduto")]
+    public GameObject tempoScadutoPanel;
 
-    [Header("Messaggi specifici")]
+    [Header("🟢 Messaggi normali")]
+    public GameObject notificaPanel;
+    public TextMeshProUGUI notificaTesto;
+    public float durataMessaggio = 2f;
+
+    [Header("🏆 Messaggio di vittoria")]
+    public GameObject vittoriaPanel;
+    public TextMeshProUGUI vittoriaTesto;
+
+    [Header("🌱 Risparmio ambientale")]
+    public GameObject messaggioCO2Panel;
+    public TextMeshProUGUI messaggioCO2Text;
+
+    [Header("📘 Tutorial")]
+    public GameObject pannelloTutorial;
+    private bool tutorialAperto = false;
+
+    [Header("♻ Conteggio Rifiuti")]
+    public TextMeshProUGUI rifiutiText;
+
+    [Header("📊 Punteggio")]
+    public TextMeshProUGUI punteggioText;
+
+    [Header("⏱ Timer UI")]
+    public TextMeshProUGUI timerText;
+
+    [Header("💥 Esplosivi")]
+    public GameObject messaggioEsplosivoPanel;
+    public TMP_Text messaggioEsplosivoText;
+    private bool haMostratoMessaggioEsplosivo = false; // 🔥 flag
+
+    [Header("🧽 Messaggio lavabile")]
     public GameObject messaggioLavabilePanel;
     public TMP_Text messaggioLavabileText;
+    private bool haMostratoMessaggioLavabile = false;
 
+    [Header("🧽 Messaggio composti")]
     public GameObject messaggioCompostoPanel;
     public TMP_Text messaggioCompostoText;
 
-    public GameObject messaggioEsplosivoPanel;
-    public TMP_Text messaggioEsplosivoText;
-
-    [Header("Timer UI")]
-    public TMP_Text timerText;
-
-    [Header("Punteggio UI")]
-    public TMP_Text punteggioText;
-
-    [Header("Conteggio Rifiuti UI")]
-    public TMP_Text conteggioRifiutiText;
-
-    [Header("Panel Tempo Scaduto")]
-    public GameObject tempoScadutoPanel;
-
     private Coroutine messaggioRoutine;
+    private float timer = 0f;
 
-    private void Awake()
+    void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-
-        // Assicurati che tutti i pannelli siano nascosti all'avvio
-        if (messaggioPanel != null) messaggioPanel.SetActive(false);
-        if (messaggioLavabilePanel != null) messaggioLavabilePanel.SetActive(false);
-        if (messaggioCompostoPanel != null) messaggioCompostoPanel.SetActive(false);
-        if (messaggioEsplosivoPanel != null) messaggioEsplosivoPanel.SetActive(false);
-        if (tempoScadutoPanel != null) tempoScadutoPanel.SetActive(false);
     }
 
-    public void MostraMessaggio(string testo, float durata = 3f)
+    void Start()
     {
-        if (messaggioRoutine != null)
-            StopCoroutine(messaggioRoutine);
+        if (pannelloTutorial != null)
+        {
+            pannelloTutorial.SetActive(true);
+            tutorialAperto = true;
+            Movement.inputBloccato = true;
+        }
 
-        messaggioText.text = testo;
-        messaggioPanel.SetActive(true);
-        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioPanel, durata));
+        if (messaggioEsplosivoPanel != null)
+            messaggioEsplosivoPanel.SetActive(false); // 🔥 Nascondi a inizio
     }
 
-    public void MostraMessaggioLavabile(float durata = 8f)
+    void Update()
     {
-        if (messaggioRoutine != null)
-            StopCoroutine(messaggioRoutine);
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (pannelloTutorial != null)
+            {
+                tutorialAperto = !tutorialAperto;
+                pannelloTutorial.SetActive(tutorialAperto);
+                Movement.inputBloccato = tutorialAperto;
+            }
+        }
 
-        if (messaggioLavabileText != null)
-            messaggioLavabileText.text = "I rifiuti sporchi non possono essere riciclati così come sono.\r\nNel mondo reale, vanno ripuliti per bene prima di finire nel bidone giusto!\r\n\r\nTrova il contenitore giusto solo dopo aver fatto un salto in un posto dove scorre l'acqua ";
-
-        messaggioLavabilePanel.SetActive(true);
-        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioLavabilePanel, durata));
-    }
-
-    public void MostraMessaggioRifiutoComposto(float durata = 8f)
-    {
-        if (messaggioRoutine != null)
-            StopCoroutine(messaggioRoutine);
-
-        if (messaggioCompostoText != null)
-            messaggioCompostoText.text = "I rifiuti composti non possono essere buttati così come sono.\r\nNel mondo reale vanno divisi per materiali prima del riciclo!\r\n\r\nTrova il bidone giusto solo dopo averli smontati pezzo per pezzo \r\nE ricorda: la “Q” non è solo una lettera… è anche un’azione fondamentale!";
-
-        messaggioCompostoPanel.SetActive(true);
-        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioCompostoPanel, durata));
+        if (notificaPanel.activeSelf)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                notificaPanel.SetActive(false);
+            }
+        }
     }
 
     public void MostraMessaggioEsplosivo(float durata = 4f)
@@ -87,10 +100,34 @@ public class UIManager : MonoBehaviour
             StopCoroutine(messaggioRoutine);
 
         if (messaggioEsplosivoText != null)
-            messaggioEsplosivoText.text = "Attenzione! Hai raccolto un rifiuto esplosivo!";
+            messaggioEsplosivoText.text = "ATTENZIONE! \r\nI rifiuti pericolosi non vanno nei bidoni normali.\r\nNel mondo reale vanno portati in isole ecologiche.\r\n\r\nTrova il bidone nascosto per buttarlo...\r\nE fai attenzione a non... saltare in aria!";
 
         messaggioEsplosivoPanel.SetActive(true);
         messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioEsplosivoPanel, durata));
+    }
+
+    public void MostraMessaggioLavabile(float durata = 4f)
+    {
+        if (messaggioRoutine != null)
+            StopCoroutine(messaggioRoutine);
+
+        if (messaggioLavabileText != null)
+            messaggioLavabileText.text = "ATTENZIONE!\r\nI rifiuti sporchi non possono essere riciclati così come sono.\r\nNel mondo reale, vanno... ripuliti per bene prima di finire nel bidone giusto!\r\n\r\nTrova il contenitore giusto solo dopo aver fatto un salto in un posto dove  scorre l'acqua!";
+
+        messaggioLavabilePanel.SetActive(true);
+        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioLavabilePanel, durata));
+    }
+
+    public void MostraMessaggioRifiutoComposto(float durata = 4f)
+    {
+        if (messaggioRoutine != null)
+            StopCoroutine(messaggioRoutine);
+
+        if (messaggioCompostoText != null)
+            messaggioCompostoText.text = "I rifiuti composti non possono essere buttati così come sono.\r\nNel mondo reale vanno... divisi per materiali prima del riciclo!\r\n\r\nTrova il bidone giusto solo dopo averli smontati pezzo per pezzo \r\nE ricorda: la “T” non è solo una lettera… è anche un’azione fondamentale! ";
+
+        messaggioCompostoPanel.SetActive(true);
+        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioCompostoPanel, durata));
     }
 
     IEnumerator ChiudiDopoSecondi(GameObject panel, float secondi)
@@ -99,46 +136,116 @@ public class UIManager : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void AggiornaTimerUI(float tempo)
+
+    public void MostraMessaggio(string testo)
     {
-        if (timerText != null)
+        if (notificaTesto != null)
         {
-            int minuti = Mathf.FloorToInt(tempo / 60);
-            int secondi = Mathf.FloorToInt(tempo % 60);
-            timerText.text = $"{minuti:00}:{secondi:00}";
+            notificaTesto.text = testo;
+            notificaTesto.alignment = TextAlignmentOptions.Center;
         }
+
+        if (notificaPanel != null)
+        {
+            notificaPanel.SetActive(true);
+            timer = durataMessaggio;
+        }
+    }
+
+    public IEnumerator MostraVittoria(string testo)
+    {
+        if (vittoriaTesto != null)
+            vittoriaTesto.text = testo;
+
+        if (vittoriaPanel != null)
+            vittoriaPanel.SetActive(true);
+
+        yield return new WaitForSeconds(5f);
+
+        if (vittoriaPanel != null)
+            vittoriaPanel.SetActive(false);
+    }
+
+    public IEnumerator AvviaQuiz()
+    {
+        yield return new WaitForSeconds(5f);
+
+        QuizManager quiz = FindFirstObjectByType<QuizManager>();
+        if (quiz != null)
+        {
+            quiz.MostraQuiz();
+        }
+        else
+        {
+            Debug.LogWarning("⚠ QuizManager non trovato!");
+        }
+
+        Debug.Log("🧠 Quiz iniziato!");
     }
 
     public void AggiornaPunteggioUI(int punteggio)
     {
         if (punteggioText != null)
-        {
             punteggioText.text = $"Punteggio: {punteggio}";
-        }
+        else
+            Debug.LogWarning("⚠ punteggioText non è assegnato!");
     }
 
     public void AggiornaConteggioRifiuti(int smaltiti, int totali)
     {
-        if (conteggioRifiutiText != null)
+        if (rifiutiText != null)
+            rifiutiText.text = $"Rifiuti smaltiti correttamente: {smaltiti} / {totali}";
+        else
+            Debug.LogWarning("⚠ rifiutiText non è assegnato!");
+    }
+
+    public void AggiornaTimerUI(float tempo)
+    {
+        if (timerText != null)
         {
-            conteggioRifiutiText.text = $"Rifiuti smaltiti: {smaltiti} / {totali}";
+            tempo = Mathf.Max(0f, tempo);
+            int minuti = Mathf.FloorToInt(tempo / 60f);
+            int secondi = Mathf.FloorToInt(tempo % 60f);
+            timerText.text = $"Tempo: {minuti:D2}:{secondi:D2}";
         }
-    }
-
-    public IEnumerator MostraVittoria(string messaggio)
-    {
-        MostraMessaggio(messaggio, 5f);
-        yield return new WaitForSeconds(5f);
-    }
-
-    public IEnumerator AvviaQuiz()
-    {
-        // Implementa il quiz qui
-        yield break;
+        else
+        {
+            Debug.LogWarning("⚠ timerText non assegnato!");
+        }
     }
 
     public void MostraMessaggioCO2()
     {
-        // Implementa il messaggio CO2
+        if (messaggioCO2Panel != null && messaggioCO2Text != null)
+        {
+            float risparmio = GameManager.Instance.co2Risparmiata;
+            messaggioCO2Panel.SetActive(true);
+            messaggioCO2Text.text = $" Hai risparmiato {risparmio:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
+        }
+        else
+        {
+            Debug.LogWarning("⚠ messaggioCO2Panel o messaggioCO2Text non sono assegnati!");
+        }
+    }
+
+    public void ChiudiTutorial()
+    {
+        if (pannelloTutorial != null)
+        {
+            pannelloTutorial.SetActive(false);
+            tutorialAperto = false;
+            Movement.inputBloccato = false;
+        }
+    }
+
+    public void RiprovaLivello()
+    {
+        MusicManager.Instance?.PlayMusic();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void TornaAlMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

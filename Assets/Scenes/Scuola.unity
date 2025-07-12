@@ -341,6 +341,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: umido
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!1001 &18763415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6893,6 +6896,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: carta
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!114 &447112981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7711,6 +7717,11 @@ MonoBehaviour:
   punteggioText: {fileID: 1625819679}
   timerText: {fileID: 1586222760}
   messaggioEsplosivoPanel: {fileID: 849031250}
+  messaggioEsplosivoText: {fileID: 0}
+  messaggioLavabilePanel: {fileID: 0}
+  messaggioLavabileText: {fileID: 0}
+  messaggioCompostoPanel: {fileID: 0}
+  messaggioCompostoText: {fileID: 0}
 --- !u!4 &504321086
 Transform:
   m_ObjectHideFlags: 0
@@ -10723,6 +10734,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: plastica
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!1 &734996371
 GameObject:
   m_ObjectHideFlags: 0
@@ -13021,6 +13035,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: carta
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!54 &859858509
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15110,6 +15127,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: umido
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!65 &967675168
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18142,7 +18162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1495910517074145531, guid: ffc03121a9bfce64d8271a2282d51e93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.643
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 1495910517074145531, guid: ffc03121a9bfce64d8271a2282d51e93, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22202,6 +22222,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: carta
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!1 &1501122936
 GameObject:
   m_ObjectHideFlags: 0
@@ -25345,6 +25368,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: carta
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!1001 &1656476319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31008,6 +31034,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: plastica
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!1 &2003477937
 GameObject:
   m_ObjectHideFlags: 0
@@ -31909,6 +31938,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: vetro
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!65 &2080176240
 BoxCollider:
   m_ObjectHideFlags: 0

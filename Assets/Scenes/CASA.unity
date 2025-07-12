@@ -659,7 +659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &154941917
 RectTransform:
   m_ObjectHideFlags: 0
@@ -677,7 +677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 0, y: -126}
   m_SizeDelta: {x: 920, y: 435}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154941918
@@ -1576,6 +1576,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &280652287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 808951036951673270, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
+  m_PrefabInstance: {fileID: 848740591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &280652291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280652287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8192f35a44301488ec0f072d9a16fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openandclose: {fileID: 1601083969}
+  interactionText: {fileID: 0}
+  open: 1
+  interactionDistance: 3
+  interactKey: 101
 --- !u!1 &287604704 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 02cbe469f6eb1d745b787cfc2243a4e3, type: 3}
@@ -2489,7 +2511,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.05
+  m_fontSize: 52.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4852,9 +4874,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 808951038172735377, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
       insertIndex: -1
       addedObject: {fileID: 153654712}
-    - targetCorrespondingSourceObject: {fileID: 808951036577589112, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 808951036951673270, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1601083966}
+      addedObject: {fileID: 280652291}
   m_SourcePrefab: {fileID: 100100000, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
 --- !u!1 &848740592 stripped
 GameObject:
@@ -8192,10 +8214,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -9379,23 +9401,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1601083959 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 808951036577589112, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
+--- !u!95 &1601083969 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 808951036577589117, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
   m_PrefabInstance: {fileID: 848740591}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1601083966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601083959}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e9a0a7986f56a46b2be42596c08df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1601830185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12163,6 +12173,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+    - target: {fileID: 1135873215947969573, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1452197947598246385, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: m_fontAsset
       value: 

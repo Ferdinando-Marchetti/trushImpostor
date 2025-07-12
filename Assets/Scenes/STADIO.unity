@@ -2319,18 +2319,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537cb5c83bc4c9e40a38029650cec915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messaggioPanel: {fileID: 0}
-  messaggioText: {fileID: 0}
+  tempoScadutoPanel: {fileID: 426047112}
+  notificaPanel: {fileID: 0}
+  notificaTesto: {fileID: 0}
+  durataMessaggio: 2
+  vittoriaPanel: {fileID: 0}
+  vittoriaTesto: {fileID: 0}
+  messaggioCO2Panel: {fileID: 0}
+  messaggioCO2Text: {fileID: 0}
+  pannelloTutorial: {fileID: 0}
+  rifiutiText: {fileID: 0}
+  punteggioText: {fileID: 1625819679}
+  timerText: {fileID: 1586222760}
+  messaggioEsplosivoPanel: {fileID: 849031250}
+  messaggioEsplosivoText: {fileID: 0}
   messaggioLavabilePanel: {fileID: 0}
   messaggioLavabileText: {fileID: 0}
   messaggioCompostoPanel: {fileID: 0}
   messaggioCompostoText: {fileID: 0}
-  messaggioEsplosivoPanel: {fileID: 849031250}
-  messaggioEsplosivoText: {fileID: 0}
-  timerText: {fileID: 1586222760}
-  punteggioText: {fileID: 1625819679}
-  conteggioRifiutiText: {fileID: 0}
-  tempoScadutoPanel: {fileID: 426047112}
 --- !u!4 &504321086
 Transform:
   m_ObjectHideFlags: 0
@@ -14204,16 +14210,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].testo
-      value: "Quale di questi materiali pu\xF2 essere riciclato pi\xF9 volte senza
-        perdere qualit\xE0? "
+      value: 'Hai preso una bibita in lattina: cosa fai con la lattina vuota?'
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].testo
-      value: "Qual \xE8 il simbolo che identifica un materiale riciclabile? "
+      value: 'Hai acquistato un panino avvolto in carta oleata (unta). Dove va la
+        carta sporca? '
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].rispostaCorretta
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].rispostaCorretta
@@ -14224,16 +14230,32 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: 'domande.Array.data[0].opzioni.Array.data[0]'
+      value: La butto nella plastica
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: 'domande.Array.data[0].opzioni.Array.data[1]'
+      value: La schiaccio e la metto nel metallo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: 'domande.Array.data[0].opzioni.Array.data[2]'
+      value: La lascio sotto la sedia
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: 'domande.Array.data[0].opzioni.Array.data[3]'
+      value: La butto nel vetro
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[0]'
-      value: 'Un triangolo con frecce '
+      value: Umido
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[1]'
-      value: 'Un teschio  '
+      value: Carta
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[2]'
-      value: 'Un cerchio rosso  '
+      value: Indifferenziato
       objectReference: {fileID: 0}
     - target: {fileID: 5648263754490223737, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: m_AnchoredPosition.y

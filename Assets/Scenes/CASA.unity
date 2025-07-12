@@ -12317,20 +12317,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].testo
-      value: "Quale di questi materiali pu\xF2 essere riciclato pi\xF9 volte senza
-        perdere qualit\xE0? "
+      value: Hai finito di leggere un giornale e il cane ci ha camminato sopra con
+        le zampe bagnate. Dove va buttato?
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].testo
-      value: "Qual \xE8 il simbolo che identifica un materiale riciclabile? "
+      value: Stai facendo pulizia nel bagno e butti via un flacone vuoto di shampoo.
+        Cosa fai prima di gettarlo?
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].rispostaCorretta
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].rispostaCorretta
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].opzioni.Array.size
@@ -12338,15 +12339,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[0]'
-      value: 'Un triangolo con frecce '
+      value: "Lo butto direttamente nell\u2019indifferenziato"
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[1]'
-      value: 'Un teschio  '
+      value: Lo schiaccio e lo butto nella plastica
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[2]'
-      value: 'Un cerchio rosso  '
+      value: "Lo riempio d\u2019acqua e lo metto nel vetro"
       objectReference: {fileID: 0}
     - target: {fileID: 5648263754490223737, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: m_AnchoredPosition.y

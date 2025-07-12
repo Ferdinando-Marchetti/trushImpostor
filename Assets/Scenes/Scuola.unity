@@ -30514,16 +30514,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].testo
-      value: "Quale di questi materiali pu\xF2 essere riciclato pi\xF9 volte senza
-        perdere qualit\xE0? "
+      value: Durante la ricreazione hai finito uno snack confezionato in un incarto
+        plastificato. Dove lo butti?
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].testo
-      value: "Qual \xE8 il simbolo che identifica un materiale riciclabile? "
+      value: "Il tuo compagno ha gettato un tovagliolo di carta sporco di cioccolato
+        nel bidone della carta. \xC8 corretto?"
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].rispostaCorretta
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].rispostaCorretta
@@ -30534,16 +30535,20 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: 'domande.Array.data[0].opzioni.Array.data[2]'
+      value: Indifferenziato
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[0]'
-      value: 'Un triangolo con frecce '
+      value: "S\xEC, perch\xE9 \xE8 carta"
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[1]'
-      value: 'Un teschio  '
+      value: "S\xEC, se \xE8 poco sporco"
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[2]'
-      value: 'Un cerchio rosso  '
+      value: "No, va nell\u2019umido o nell\u2019indifferenziato"
       objectReference: {fileID: 0}
     - target: {fileID: 5648263754490223737, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -1983,6 +1983,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: carta
   "\xE8Esplosivo": 0
+  "\xE8Lavabile": 0
+  "\xE8Composto": 0
+  "\xE8StatoRaccolto": 0
 --- !u!114 &447112981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2278,6 +2281,11 @@ MonoBehaviour:
   punteggioText: {fileID: 1625819679}
   timerText: {fileID: 1586222760}
   messaggioEsplosivoPanel: {fileID: 0}
+  messaggioEsplosivoText: {fileID: 0}
+  messaggioLavabilePanel: {fileID: 0}
+  messaggioLavabileText: {fileID: 0}
+  messaggioCompostoPanel: {fileID: 0}
+  messaggioCompostoText: {fileID: 0}
 --- !u!4 &504321086
 Transform:
   m_ObjectHideFlags: 0
@@ -4149,6 +4157,8 @@ MonoBehaviour:
   pannelloOpzioni: {fileID: 0}
   musicaMenu: {fileID: 0}
   pannelloCrediti: {fileID: 0}
+  schermataIntro: {fileID: 0}
+  pannelloLivelli: {fileID: 0}
 --- !u!4 &1037170542
 Transform:
   m_ObjectHideFlags: 0
@@ -9085,36 +9095,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].testo
-      value: "Quale di questi materiali pu\xF2 essere riciclato pi\xF9 volte senza
-        perdere qualit\xE0? "
+      value: 'Trovi un mozzicone di sigaretta sulla spiaggia. Dove dovrebbe essere
+        buttato? '
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].testo
-      value: "Qual \xE8 il simbolo che identifica un materiale riciclabile? "
+      value: "Hai finito una bottiglietta d\u2019acqua e sei in spiaggia. Qual \xE8
+        il modo corretto per buttarla?"
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[0].rispostaCorretta
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].rispostaCorretta
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: domande.Array.data[1].opzioni.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
+      propertyPath: 'domande.Array.data[0].opzioni.Array.data[1]'
+      value: Indifferenziato
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[0]'
-      value: 'Un triangolo con frecce '
+      value: "La lasci nel secchio dell\u2019indifferenziato"
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[1]'
-      value: 'Un teschio  '
+      value: La interri nella sabbia
       objectReference: {fileID: 0}
     - target: {fileID: 5608865284606924012, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: 'domande.Array.data[1].opzioni.Array.data[2]'
-      value: 'Un cerchio rosso  '
+      value: La svuoti, la schiacci e la butti nella plastica
       objectReference: {fileID: 0}
     - target: {fileID: 5648263754490223737, guid: 38247881d46f4fc4ea1ccf623f948413, type: 3}
       propertyPath: m_AnchoredPosition.y

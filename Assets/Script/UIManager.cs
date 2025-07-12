@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     [Header("🧽 Messaggio composti")]
     public GameObject messaggioCompostoPanel;
     public TMP_Text messaggioCompostoText;
+    private bool haMostratoMessaggioComposto = false;
 
     private Coroutine messaggioRoutine;
     private float timer = 0f;
@@ -96,38 +97,67 @@ public class UIManager : MonoBehaviour
 
     public void MostraMessaggioEsplosivo(float durata = 4f)
     {
-        if (messaggioRoutine != null)
-            StopCoroutine(messaggioRoutine);
+        if (haMostratoMessaggioEsplosivo != false)
+        {
+            Debug.LogWarning("⚠ Messaggio esplosivo già mostrato!");
+            return; // Non mostrare di nuovo
+        }
+        else
+        {
+            haMostratoMessaggioEsplosivo = true; // 🔥 Imposta flag
+            if (messaggioRoutine != null)
+                StopCoroutine(messaggioRoutine);
 
-        if (messaggioEsplosivoText != null)
-            messaggioEsplosivoText.text = "ATTENZIONE! \r\nI rifiuti pericolosi non vanno nei bidoni normali.\r\nNel mondo reale vanno portati in isole ecologiche.\r\n\r\nTrova il bidone nascosto per buttarlo...\r\nE fai attenzione a non... saltare in aria!";
+            if (messaggioEsplosivoText != null)
+                messaggioEsplosivoText.text = "ATTENZIONE! \r\nI rifiuti pericolosi non vanno nei bidoni normali.\r\nNel mondo reale vanno portati in isole ecologiche.\r\n\r\nTrova il bidone nascosto per buttarlo...\r\nE fai attenzione a non... saltare in aria!";
 
-        messaggioEsplosivoPanel.SetActive(true);
-        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioEsplosivoPanel, durata));
+            messaggioEsplosivoPanel.SetActive(true);
+            messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioEsplosivoPanel, durata));
+        }
+       
     }
 
     public void MostraMessaggioLavabile(float durata = 4f)
     {
-        if (messaggioRoutine != null)
-            StopCoroutine(messaggioRoutine);
+        if (haMostratoMessaggioLavabile != false)
+        {
+            Debug.LogWarning("⚠ Messaggio lavabile già mostrato!");
+            return; // Non mostrare di nuovo
+        }
+        else
+        {
+            haMostratoMessaggioLavabile = true; // Imposta flag
+            if (messaggioRoutine != null)
+                StopCoroutine(messaggioRoutine);
 
-        if (messaggioLavabileText != null)
-            messaggioLavabileText.text = "ATTENZIONE!\r\nI rifiuti sporchi non possono essere riciclati così come sono.\r\nNel mondo reale, vanno... ripuliti per bene prima di finire nel bidone giusto!\r\n\r\nTrova il contenitore giusto solo dopo aver fatto un salto in un posto dove  scorre l'acqua!";
+            if (messaggioLavabileText != null)
+                messaggioLavabileText.text = "ATTENZIONE!\r\nI rifiuti sporchi non possono essere riciclati così come sono.\r\nNel mondo reale, vanno... ripuliti per bene prima di finire nel bidone giusto!\r\n\r\nTrova il contenitore giusto solo dopo aver fatto un salto in un posto dove  scorre l'acqua!";
 
-        messaggioLavabilePanel.SetActive(true);
-        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioLavabilePanel, durata));
+            messaggioLavabilePanel.SetActive(true);
+            messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioLavabilePanel, durata));
+        }
+        
     }
 
     public void MostraMessaggioRifiutoComposto(float durata = 4f)
     {
-        if (messaggioRoutine != null)
-            StopCoroutine(messaggioRoutine);
+        if (haMostratoMessaggioComposto != false)
+        {
+            Debug.LogWarning("⚠ Messaggio composto già mostrato!");
+            return; // Non mostrare di nuovo
+        }
+        else
+        {
+            haMostratoMessaggioComposto = true; // Imposta flag
+            if (messaggioRoutine != null)
+                StopCoroutine(messaggioRoutine);
 
-        if (messaggioCompostoText != null)
-            messaggioCompostoText.text = "I rifiuti composti non possono essere buttati così come sono.\r\nNel mondo reale vanno... divisi per materiali prima del riciclo!\r\n\r\nTrova il bidone giusto solo dopo averli smontati pezzo per pezzo \r\nE ricorda: la “T” non è solo una lettera… è anche un’azione fondamentale! ";
+            if (messaggioCompostoText != null)
+                messaggioCompostoText.text = "I rifiuti composti non possono essere buttati così come sono.\r\nNel mondo reale vanno... divisi per materiali prima del riciclo!\r\n\r\nTrova il bidone giusto solo dopo averli smontati pezzo per pezzo \r\nE ricorda: la “Q” non è solo una lettera… è anche un’azione fondamentale! ";
 
-        messaggioCompostoPanel.SetActive(true);
-        messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioCompostoPanel, durata));
+            messaggioCompostoPanel.SetActive(true);
+            messaggioRoutine = StartCoroutine(ChiudiDopoSecondi(messaggioCompostoPanel, durata));
+        }
     }
 
     IEnumerator ChiudiDopoSecondi(GameObject panel, float secondi)

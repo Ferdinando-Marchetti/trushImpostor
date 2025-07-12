@@ -138,4 +138,9 @@ public class MenuManager : MonoBehaviour
         pannelloCrediti.SetActive(false);
         MenuPrincipale.SetActive(true);
     }
+
+    public void CambiaScena(string nomeScena)
+    {
+        SceneManager.LoadScene(nomeScena);
+    }
 }

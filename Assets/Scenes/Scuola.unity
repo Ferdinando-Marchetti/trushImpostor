@@ -5652,6 +5652,9 @@ MonoBehaviour:
   openandclose: {fileID: 0}
   open: 0
   Player: {fileID: 0}
+  interactionDistance: 3
+  interactionText: {fileID: 0}
+  playerCamera: {fileID: 0}
 --- !u!4 &344537121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 453828, guid: 2dd75d75ad8bf9b4ba677d34cd6a2705, type: 3}

@@ -27,7 +27,7 @@ public class Lavandino : MonoBehaviour
                 if (pulizia != null && pulizia.DeveEssereLavato())
                 {
                     pulizia.Lava();
-                    Object.FindFirstObjectByType<UIManager>()?.MostraMessaggio("🧼 Oggetto lavato!");
+                    Object.FindFirstObjectByType<UIManager>()?.MostraMessaggio("Oggetto lavato!");
                 }
             }
         }

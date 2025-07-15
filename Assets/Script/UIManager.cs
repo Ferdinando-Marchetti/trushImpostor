@@ -41,12 +41,12 @@ public class UIManager : MonoBehaviour
     public TMP_Text messaggioEsplosivoText;
     private bool haMostratoMessaggioEsplosivo = false; // 🔥 flag
 
-    [Header("🧽 Messaggio lavabile")]
+    [Header(" Messaggio lavabile")]
     public GameObject messaggioLavabilePanel;
     public TMP_Text messaggioLavabileText;
     private bool haMostratoMessaggioLavabile = false;
 
-    [Header("🧽 Messaggio composti")]
+    [Header(" Messaggio composti")]
     public GameObject messaggioCompostoPanel;
     public TMP_Text messaggioCompostoText;
     private bool haMostratoMessaggioComposto = false;
@@ -250,7 +250,7 @@ public class UIManager : MonoBehaviour
         {
             float risparmio = GameManager.Instance.co2Risparmiata;
             messaggioCO2Panel.SetActive(true);
-            messaggioCO2Text.text = $" Hai risparmiato {risparmio:F1} kg di CO₂ smaltendo correttamente i rifiuti!";
+            messaggioCO2Text.text = $" Hai risparmiato {risparmio:F1} kg di CO2 smaltendo correttamente i rifiuti!";
         }
         else
         {

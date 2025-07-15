@@ -6,7 +6,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public AudioClip suonoEsplosione;
-    public GameObject filtroRossoPanel; // 🔴 pannello rosso per la morte
+    public GameObject filtroRossoPanel;
     public float ritardoMorte = 2f;
 
     public float co2Risparmiata = 0f;
@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     [Header("Gestione Rifiuti")]
     public int totaleRifiuti = 0;
     private int rifiutiSmaltiti = 0;
+    private int rifiutiGestiti = 0; // ✅ Aggiunto per conteggio completo
+
     public int RifiutiSmaltiti => rifiutiSmaltiti;
 
     [Header("Interazione")]
@@ -34,9 +36,9 @@ public class GameManager : MonoBehaviour
     [Header("📊 Punteggio")]
     public TextMeshProUGUI punteggioText;
 
-    private IInteractable currentTarget;
-
     public QuizManager quizManager;
+
+    private IInteractable currentTarget;
 
     private void Awake()
     {
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        AvviaTimer(120f); // Inizia il conto alla rovescia da 2 minuti
+        AvviaTimer(240f);
     }
 
     void Update()
@@ -109,13 +111,14 @@ public class GameManager : MonoBehaviour
     public void RifiutoSmaltitoCorretto()
     {
         rifiutiSmaltiti++;
+        rifiutiGestiti++; // ✅ Conta anche qui
         AggiungiPunti(10);
         Debug.Log("✅ Rifiuto corretto smaltito.");
-        Debug.Log($"📊 Smaltiti: {rifiutiSmaltiti} / {totaleRifiuti}");
+        Debug.Log($"📊 Smaltiti correttamente: {rifiutiSmaltiti} / {totaleRifiuti}");
 
         UIManager.Instance.AggiornaPunteggioUI(punteggio);
 
-        if (rifiutiSmaltiti >= totaleRifiuti)
+        if (rifiutiGestiti >= totaleRifiuti)
         {
             Vittoria();
         }
@@ -132,9 +135,17 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        rifiutiGestiti++; // ✅ Conta anche quelli sbagliati
         TogliPunti(5);
         Debug.Log("❌ Rifiuto smaltito nel bidone sbagliato.");
         UIManager.Instance.AggiornaPunteggioUI(punteggio);
+
+        if (rifiutiGestiti >= totaleRifiuti)
+        {
+            Vittoria();
+        }
+
+        AggiornaUIRifiuti();
     }
 
     void Vittoria()
@@ -142,12 +153,12 @@ public class GameManager : MonoBehaviour
         timerAttivo = false;
         Movement.inputBloccato = true;
 
-        Debug.Log($"🎉 VITTORIA! Smaltiti: {rifiutiSmaltiti} / Totale: {totaleRifiuti}");
+        Debug.Log($"🎉 VITTORIA! Rifiuti gestiti: {rifiutiGestiti} / Totale: {totaleRifiuti}");
 
         UIManager ui = Object.FindFirstObjectByType<UIManager>();
         if (ui != null)
         {
-            StartCoroutine(ui.MostraVittoria("Hai smaltito tutti i rifiuti! Hai vinto!"));
+            StartCoroutine(ui.MostraVittoria("Hai finito di smaltire i rifiuti!"));
             StartCoroutine(ui.AvviaQuiz());
 
             ui.MostraMessaggioCO2();
@@ -208,11 +219,9 @@ public class GameManager : MonoBehaviour
 
     public void Esplodi()
     {
-        // Suono subito
         if (suonoEsplosione != null)
             AudioSource.PlayClipAtPoint(suonoEsplosione, Camera.main.transform.position);
 
-        // Ferma musica
         if (MusicManager.Instance != null)
             MusicManager.Instance.StopMusic();
 
@@ -221,11 +230,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("💥 Esplosione! Il giocatore è morto.");
 
-        // Mostra pannello rosso
         if (filtroRossoPanel != null)
             filtroRossoPanel.SetActive(true);
 
-        // Mostra messaggio di morte dopo ritardo
         StartCoroutine(MostraMorteDopoRitardo());
     }
 

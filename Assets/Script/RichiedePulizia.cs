@@ -13,7 +13,7 @@ public class RichiedePulizia : MonoBehaviour
         if (èPulito) return;
 
         èPulito = true;
-        Debug.Log("🧽 Oggetto lavato!");
+        Debug.Log("Oggetto lavato!");
 
         // Avvia effetto visivo se presente
         if (prefabEffettoLavaggio != null && puntoEffetto != null)

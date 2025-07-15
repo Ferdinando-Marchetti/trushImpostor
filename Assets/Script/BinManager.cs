@@ -19,6 +19,7 @@ public class BinManager : MonoBehaviour
         {
             Debug.Log("⚠️ Oggetto composto! Devi separarlo prima.");
             UIManager.Instance?.MostraMessaggio(" Prima separa gli oggetti!");
+            GameManager.Instance?.RifiutoSmaltitoErrato(other.gameObject); // ✅ Aggiunto
             RespingeOggetto(other);
             return;
         }
@@ -28,45 +29,41 @@ public class BinManager : MonoBehaviour
         {
             Debug.Log("❌ Oggetto sporco! Non può essere buttato.");
             UIManager.Instance?.MostraMessaggio(" Questo oggetto è sporco! Lavalo prima.");
+            GameManager.Instance?.RifiutoSmaltitoErrato(other.gameObject); // ✅ Aggiunto
             RespingeOggetto(other);
             return;
         }
 
         if (item.trashType == tipoAccettato)
         {
-            // ✅ Oggetto nel bidone giusto, anche se esplosivo va accettato
+            // ✅ Oggetto corretto
             Debug.Log("✅ Oggetto corretto, accettato.");
             UIManager.Instance?.MostraMessaggio(" Oggetto corretto! Bravo.");
             switch (tipoAccettato)
             {
                 case "plastica":
-                    Debug.Log("♻️ Plastica smaltita correttamente.");
-                    co2Risparmiata += 0.1f; // Aggiungi CO2 risparmiata per plastica
+                    co2Risparmiata += 0.1f;
                     break;
                 case "carta":
-                    Debug.Log("📄 Carta smaltita correttamente.");
-                    co2Risparmiata += 0.15f; // Aggiungi CO2 risparmiata per carta
+                    co2Risparmiata += 0.15f;
                     break;
                 case "vetro":
-                    Debug.Log("🍶 Vetro smaltito correttamente.");
-                    co2Risparmiata += 0.25f; // Aggiungi CO2 risparmiata per vetro
+                    co2Risparmiata += 0.25f;
                     break;
                 case "umido":
-                    Debug.Log("🥕 Umido smaltito correttamente.");
-                    co2Risparmiata += 0.05f; // Aggiungi CO2 risparmiata per umido
+                    co2Risparmiata += 0.05f;
                     break;
                 case "indifferenziato":
-                    Debug.Log("🗑️ Indifferenziato smaltito correttamente.");
-                    co2Risparmiata += 0.02f; // Aggiungi CO2 risparmiata per indifferenziato
+                    co2Risparmiata += 0.02f;
                     break;
                 case "esplosivo":
-                    Debug.Log("💣 Esplosivo smaltito correttamente.");
-                    co2Risparmiata += 0.5f; // Aggiungi CO2 risparmiata per esplosivi
+                    co2Risparmiata += 0.5f;
                     break;
                 default:
                     Debug.LogWarning($"Tipo di rifiuto sconosciuto: {tipoAccettato}");
                     break;
             }
+
             GameManager.Instance?.AggiungiCO2(co2Risparmiata);
             GameManager.Instance?.RifiutoSmaltitoCorretto();
             Destroy(other.gameObject);
@@ -79,7 +76,6 @@ public class BinManager : MonoBehaviour
 
             if (item.èEsplosivo)
             {
-                // 💥 SOLO ORA fa esplodere
                 Debug.Log("💣 Era esplosivo! Esplode.");
                 GameManager.Instance?.Esplodi();
             }
